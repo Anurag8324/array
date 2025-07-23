@@ -1,0 +1,57 @@
+/*
+LeetCode Problem 268 - Missing Number
+Difficulty: Easy
+
+Problem:
+Given an array nums containing n distinct numbers in the range [0, n],
+return the only number in the range that is missing from the array.
+
+Example 1:
+Input:  nums = [3, 0, 1]
+Output: 2
+
+Example 2:
+Input:  nums = [0, 1]
+Output: 2
+
+Example 3:
+Input:  nums = [9,6,4,2,3,5,7,0,1]
+Output: 8
+
+Constraints:
+- n == nums.length
+- 1 <= n <= 10^4
+- 0 <= nums[i] <= n
+- All numbers of nums are unique.
+
+Approach:
+This solution uses the XOR technique:
+- XOR all numbers from 1 to n
+- XOR all elements in the nums array
+- The result of XORing those two results gives the missing number
+
+Why it works:
+A ⊕ A = 0, and A ⊕ 0 = A
+So all paired numbers cancel out, leaving only the missing one.
+
+Time Complexity:  O(n)
+Space Complexity: O(1)
+*/
+
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int n = nums.size();
+        int a = 0, b = 0;
+
+        for (int i = 0; i < n; i++) {
+            a ^= nums[i];   // XOR of elements
+            b ^= (i + 1);   // XOR of indices from 1 to n
+        }
+
+        return a ^ b; // The missing number
+    }
+};
